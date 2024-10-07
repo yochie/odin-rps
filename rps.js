@@ -1,3 +1,4 @@
+const rounds = 5;
 let humanScore = 0;
 let computerScore = 0;
 
@@ -6,17 +7,32 @@ let roundDescriptionDisplay = document.querySelector(".round-description");
 let roundOutcomeDisplay = document.querySelector(".round-outcome");
 let humanScoreDisplay = document.querySelector(".human-score");
 let computerScoreDisplay = document.querySelector(".computer-score");
+let gameoverDisplay = document.querySelector(".gameover");
 
-buttonList.addEventListener("click", function (e) {
-    playRound(e.target.id);
-})
+buttonList.addEventListener("click", handleHumanChoice)
+
+function handleHumanChoice(event){
+    playRound(event.target.id);
+}
 
 function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
     let outcome = compareChoices(humanChoice, computerChoice);
     displayResult(outcome, humanChoice, computerChoice);
     tallyScores(outcome);
-    displayScores(); 
+    displayScores();
+    if (humanScore >= 5 || computerScore >= 5) {
+        gameover();
+    }
+}
+
+function gameover() {
+    if (humanScore > computerScore) {
+        gameoverDisplay.textContent = "Gameover. You win!";
+    } else if (computerScore > humanScore) {
+        gameoverDisplay.textContent = "Gameover. You lose.";
+    }
+    buttonList.removeEventListener("click", handleHumanChoice);
 }
 
 //returns 1 for human win, -1 for computer win and 0 for tie
@@ -76,7 +92,7 @@ function displayResult(outcome, humanChoice, computerChoice) {
     } else {
         descriptionString = `You both chose ${humanChoice}.`;
         outcomeString = "It's a tie"
-    } 
+    }
     roundDescriptionDisplay.textContent = descriptionString;
     roundOutcomeDisplay.textContent = outcomeString;
 }
@@ -96,7 +112,7 @@ function isValidChoice(choice) {
     return (choice === "rock" || choice === "paper" || choice === "scissor");
 }
 
-function displayScores(){
+function displayScores() {
     humanScoreDisplay.textContent = humanScore;
     computerScoreDisplay.textContent = computerScore;
 }
