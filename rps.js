@@ -92,21 +92,6 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice;
-    let keepGoing = true;
-    do {
-        choice = prompt("Rock, Paper or Scissor?");
-        choice = choice.toLowerCase();
-        if (!isValidChoice(choice)) {
-            alert("invalid choice");
-        } else {
-            keepGoing = false;
-        }
-    } while (keepGoing);
-    return choice;
-}
-
 function isValidChoice(choice) {
     return (choice === "rock" || choice === "paper" || choice === "scissor");
 }
