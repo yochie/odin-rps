@@ -100,26 +100,3 @@ function displayScores(){
     humanScoreDisplay.textContent = humanScore;
     computerScoreDisplay.textContent = computerScore;
 }
-
-// function playGame() {
-//     let humanScore = 0;
-//     let computerScore = 0;
-//     const rounds = 5;
-
-//     for (let gamesPlayed = 0; gamesPlayed < rounds; gamesPlayed++) {
-//         let humanChoice = getHumanChoice();
-//         let computerChoice = getComputerChoice();
-
-//         playRound(humanChoice, computerChoice);
-//     }
-
-//     console.log(`You : ${humanScore}\nComputer : ${computerScore}`);
-//     if (humanScore > computerScore) {
-//         console.log("You win!");
-//     } else if (computerScore > humanScore) {
-//         console.log("You lose.");
-//     } else {
-//         console.log("Its a tie.");
-//     }
-
-// }
