@@ -2,16 +2,21 @@ let humanScore = 0;
 let computerScore = 0;
 
 let buttonList = document.querySelector(".buttons");
+let roundDescriptionDisplay = document.querySelector(".round-description");
+let roundOutcomeDisplay = document.querySelector(".round-outcome");
+let humanScoreDisplay = document.querySelector(".human-score");
+let computerScoreDisplay = document.querySelector(".computer-score");
+
 buttonList.addEventListener("click", function (e) {
     playRound(e.target.id);
 })
 
 function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
-    console.log(`Computer chose ${computerChoice}.`);
     let outcome = compareChoices(humanChoice, computerChoice);
-    tallyOutcome(outcome);
-    logOutcome(outcome);
+    displayResult(outcome, humanChoice, computerChoice);
+    tallyScores(outcome);
+    displayScores(); 
 }
 
 //returns 1 for human win, -1 for computer win and 0 for tie
@@ -51,7 +56,7 @@ function compareChoices(humanChoice, computerChoice) {
     return outcome;
 }
 
-function tallyOutcome(outcome) {
+function tallyScores(outcome) {
     if (outcome === 1) {
         humanScore++;
     } else if (outcome === -1) {
@@ -59,14 +64,21 @@ function tallyOutcome(outcome) {
     }
 }
 
-function logOutcome(outcome) {
+function displayResult(outcome, humanChoice, computerChoice) {
+    let descriptionString;
+    let outcomeString;
     if (outcome === 1) {
-        console.log("You win!");
+        descriptionString = `Your ${humanChoice} beats computers ${computerChoice}.`;
+        outcomeString = "You win!";
     } else if (outcome === -1) {
-        console.log("You lose :(");
+        descriptionString = `Your ${humanChoice} loses to computers ${computerChoice}.`;
+        outcomeString = "You lose :("
     } else {
-        console.log("It's a tie.")
-    }
+        descriptionString = `You both chose ${humanChoice}.`;
+        outcomeString = "It's a tie"
+    } 
+    roundDescriptionDisplay.textContent = descriptionString;
+    roundOutcomeDisplay.textContent = outcomeString;
 }
 
 function getComputerChoice() {
@@ -97,6 +109,11 @@ function getHumanChoice() {
 
 function isValidChoice(choice) {
     return (choice === "rock" || choice === "paper" || choice === "scissor");
+}
+
+function displayScores(){
+    humanScoreDisplay.textContent = humanScore;
+    computerScoreDisplay.textContent = computerScore;
 }
 
 // function playGame() {
